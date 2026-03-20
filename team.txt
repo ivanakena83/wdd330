@@ -1,2 +1,9 @@
-https://trello.com/b/F8hctwKn/sleep-outside-11 
+Task: Implement Quick Lookup (real-time product search feature)
+
+Source:
+https://ivanakena83.github.io/wdd330/quick-lookup.html
+
+Site:
+https://github.com/ivanakena83/wdd330.git
+
 Ivan Akena
