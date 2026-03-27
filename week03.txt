@@ -1,0 +1,5 @@
+Task: Expand inventory - Add four categories (Tents, Backpacks, Sleeping Bags, Hammocks) to the main page with links to category-specific product listing pages.
+
+Source: https://github.com/ivanakena83/sleep-outside/tree/main
+
+Site: https://ivanakena83.github.io/sleep-outside/
