@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sleep Outside - Your one-stop shop for camping gear, tents, backpacks, sleeping bags, and hammocks for outdoor adventures">
+    <meta name="keywords" content="camping gear, tents, backpacks, sleeping bags, hammocks, outdoor equipment">
+    <meta name="author" content="Sleep Outside">
+    <title>Sleep Outside - Premium Camping Gear for Your Outdoor Adventures</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container">
+            <div class="header-content">
+                <a href="/index.html" class="logo">
+                    <img src="/images/logo.svg" alt="Sleep Outside Logo" class="logo-img">
+                    <span class="logo-text">Sleep Outside</span>
+                </a>
+                <nav class="main-nav">
+                    <ul class="nav-list">
+                        <li><a href="/index.html" class="active">Home</a></li>
+                        <li><a href="/product-listing/index.html?category=tents">Tents</a></li>
+                        <li><a href="/product-listing/index.html?category=backpacks">Backpacks</a></li>
+                        <li><a href="/product-listing/index.html?category=sleeping-bags">Sleeping Bags</a></li>
+                        <li><a href="/product-listing/index.html?category=hammocks">Hammocks</a></li>
+                        <li><a href="/cart/index.html" class="cart-link">Cart 🛒 <span class="cart-count">0</span></a></li>
+                    </ul>
+                </nav>
+                <button class="mobile-menu-btn" aria-label="Menu">☰</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1 class="hero-title">No wonder we are a mess!</h1>
+                <p class="hero-subtitle">What we really need is to get outside... in fact SLEEP outside.</p>
+                <p class="hero-description">Our mission is to provide you with everything you need to do this comfortably at an affordable price.</p>
+                <a href="#categories" class="btn btn-primary">Shop Now →</a>
+            </div>
+        </section>
+
+        <!-- Product Categories Section -->
+        <section id="categories" class="product-categories">
+            <div class="container">
+                <h2>Shop by Category</h2>
+                <p class="category-intro">Find the perfect gear for your next outdoor adventure. From lightweight backpacks to cozy sleeping bags, we've got everything you need to explore the great outdoors.</p>
+                
+                <div class="categories-grid">
+                    <!-- Tents Category -->
+                    <div class="category-card" data-category="tents">
+                        <div class="category-image">
+                            <img src="/images/tents-icon.svg" alt="Tents" loading="lazy">
+                        </div>
+                        <div class="category-info">
+                            <h3>Tents</h3>
+                            <p>Find your perfect shelter for any adventure</p>
+                            <ul class="category-features">
+                                <li>✓ 3 & 4 Season Tents</li>
+                                <li>✓ 2-6 Person Capacity</li>
+                                <li>✓ Waterproof & Durable</li>
+                            </ul>
+                            <a href="/product-listing/index.html?category=tents" class="category-link">Shop Tents →</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Backpacks Category -->
+                    <div class="category-card" data-category="backpacks">
+                        <div class="category-image">
+                            <img src="/images/backpacks-icon.svg" alt="Backpacks" loading="lazy">
+                        </div>
+                        <div class="category-info">
+                            <h3>Backpacks</h3>
+                            <p>Carry your gear in comfort and style</p>
+                            <ul class="category-features">
+                                <li>✓ 20L to 80L Capacity</li>
+                                <li>✓ Ergonomic Design</li>
+                                <li>✓ Hydration Compatible</li>
+                            </ul>
+                            <a href="/product-listing/index.html?category=backpacks" class="category-link">Shop Backpacks →</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Sleeping Bags Category -->
+                    <div class="category-card" data-category="sleeping-bags">
+                        <div class="category-image">
+                            <img src="/images/sleeping-bags-icon.svg" alt="Sleeping Bags" loading="lazy">
+                        </div>
+                        <div class="category-info">
+                            <h3>Sleeping Bags</h3>
+                            <p>Stay warm and cozy on cold nights</p>
+                            <ul class="category-features">
+                                <li>✓ 20°F to 50°F Ratings</li>
+                                <li>✓ Mummy & Rectangular</li>
+                                <li>✓ Down & Synthetic</li>
+                            </ul>
+                            <a href="/product-listing/index.html?category=sleeping-bags" class="category-link">Shop Sleeping Bags →</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Hammocks Category -->
+                    <div class="category-card" data-category="hammocks">
+                        <div class="category-image">
+                            <img src="/images/hammocks-icon.svg" alt="Hammocks" loading="lazy">
+                        </div>
+                        <div class="category-info">
+                            <h3>Hammocks</h3>
+                            <p>Relax and swing under the stars</p>
+                            <ul class="category-features">
+                                <li>✓ Portable & Lightweight</li>
+                                <li>✓ Easy Setup</li>
+                                <li>✓ Includes Straps</li>
+                            </ul>
+                            <a href="/product-listing/index.html?category=hammocks" class="category-link">Shop Hammocks →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Products Section -->
+        <section class="featured-products">
+            <div class="container">
+                <h2>Featured Products</h2>
+                <div class="featured-grid" id="featured-products">
+                    <div class="loading-spinner">Loading featured products...</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Choose Us Section -->
+        <section class="why-choose-us">
+            <div class="container">
+                <h2>Why Choose Sleep Outside?</h2>
+                <div class="features-grid">
+                    <div class="feature">
+                        <div class="feature-icon">🏕️</div>
+                        <h3>Quality Gear</h3>
+                        <p>All our products are from trusted brands and tested for durability</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">💰</div>
+                        <h3>Affordable Prices</h3>
+                        <p>Get premium outdoor gear at prices that won't break the bank</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">🚚</div>
+                        <h3>Fast Shipping</h3>
+                        <p>Quick delivery so you can start your adventure sooner</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">🔄</div>
+                        <h3>Easy Returns</h3>
+                        <p>30-day return policy for your peace of mind</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter Section -->
+        <section class="newsletter">
+            <div class="container">
+                <h2>Stay Updated</h2>
+                <p>Subscribe to get special offers, new product alerts, and outdoor tips!</p>
+                <form class="newsletter-form" id="newsletter-form">
+                    <input type="email" placeholder="Enter your email address" required>
+                    <button type="submit" class="btn btn-secondary">Subscribe</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Sleep Outside</h4>
+                    <p>Your trusted partner for outdoor adventures since 2020.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="/index.html">Home</a></li>
+                        <li><a href="/product-listing/index.html?category=tents">Tents</a></li>
+                        <li><a href="/product-listing/index.html?category=backpacks">Backpacks</a></li>
+                        <li><a href="/product-listing/index.html?category=sleeping-bags">Sleeping Bags</a></li>
+                        <li><a href="/product-listing/index.html?category=hammocks">Hammocks</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Us</h4>
+                    <p>Email: support@sleepoutside.com</p>
+                    <p>Phone: (555) 123-4567</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook">📘</a>
+                        <a href="#" aria-label="Instagram">📷</a>
+                        <a href="#" aria-label="Twitter">🐦</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Sleep Outside. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="/js/main.js"></script>
+</body>
+</html>
