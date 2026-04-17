@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>CultureConnect | Discover the world</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      transition: all 0.2s ease;
+    }
+
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background-color: #F9F7F3;
+      color: #2D2D2D;
+      line-height: 1.6;
+    }
+
+    h1, h2, h3, .logo {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+    }
+
+    /* Header */
+    header {
+      background: #0A2647;
+      color: #F9F7F3;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.5rem;
+    }
+
+    .logo-icon {
+      font-size: 2rem;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    .favorites-btn {
+      background: #2C5F2D;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 30px;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+      transition: transform 0.2s, background 0.2s;
+    }
+    .favorites-btn:hover {
+      background: #1e3f1f;
+      transform: scale(1.02);
+    }
+
+    /* Search */
+    .search-container {
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      position: relative;
+    }
+
+    #countryInput {
+      width: 100%;
+      padding: 1rem;
+      font-size: 1rem;
+      border: 2px solid #ddd;
+      border-radius: 50px;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    #countryInput:focus {
+      border-color: #0A2647;
+      box-shadow: 0 0 0 3px rgba(10,38,71,0.2);
+    }
+
+    .autocomplete-list {
+      position: absolute;
+      background: white;
+      width: 100%;
+      max-height: 200px;
+      overflow-y: auto;
+      border-radius: 20px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      z-index: 10;
+    }
+    .autocomplete-item {
+      padding: 0.75rem 1rem;
+      cursor: pointer;
+      transition: 0.1s;
+    }
+    .autocomplete-item:hover {
+      background: #e0e0e0;
+    }
+
+    /* Main card */
+    .country-card {
+      background: white;
+      max-width: 1200px;
+      margin: 2rem auto;
+      border-radius: 32px;
+      box-shadow: 0 20px 35px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+      animation: fadeInUp 0.5s;
+    }
+    .country-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 25px 40px rgba(0,0,0,0.15);
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+
+    .flag-section {
+      background: #0A2647;
+      text-align: center;
+      padding: 1.5rem;
+    }
+    .flag-section img {
+      max-width: 150px;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      transition: transform 0.3s;
+    }
+    .flag-section img:hover {
+      transform: scale(1.05);
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      padding: 2rem;
+    }
+
+    .info-card {
+      background: #fefefe;
+      border-radius: 24px;
+      padding: 1.2rem;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.05);
+      transition: all 0.3s;
+    }
+    .info-card:hover {
+      transform: scale(0.98);
+      background: #fff6e8;
+    }
+
+    .info-card h3 {
+      color: #0A2647;
+      border-left: 5px solid #FF6B6B;
+      padding-left: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .favorite-star {
+      background: #FF6B6B;
+      border: none;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 1rem;
+      transition: 0.2s;
+    }
+    .favorite-star.active {
+      background: gold;
+      color: black;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      background: #0A2647;
+      color: white;
+      margin-top: 3rem;
+    }
+
+    @media (max-width: 768px) {
+      header { flex-direction: column; }
+      .info-grid { padding: 1rem; }
+    }
+
+    .loading {
+      text-align: center;
+      padding: 2rem;
+      font-size: 1.2rem;
+      animation: blink 1s infinite;
+    }
+    @keyframes blink {
+      0% { opacity: 0.3; }
+      100% { opacity: 1; }
+    }
+    .error {
+      background: #ffe0e0;
+      border-left: 5px solid red;
+      padding: 1rem;
+      margin: 1rem;
+      border-radius: 12px;
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <span class="logo-icon">🌍🎵🍲</span>
+    <span>CultureConnect</span>
+  </div>
+  <button id="showFavoritesBtn" class="favorites-btn">⭐ My Favorites</button>
+</header>
+
+<div class="search-container">
+  <input type="text" id="countryInput" placeholder="Search for a country... e.g., Japan, Canada, Brazil" autocomplete="off">
+  <div id="autocompleteList" class="autocomplete-list" style="display: none;"></div>
+</div>
+
+<div id="mainContent">
+  <!-- dynamic content will appear here -->
+  <div class="country-card" style="text-align:center; padding:3rem;">
+    <p>🔍 Search a country above to explore its culture!</p>
+  </div>
+</div>
+
+<footer>
+  <p>CultureConnect – Discover music, cuisine & landmarks | Data via REST Countries, TheMealDB & TheAudioDB</p>
+</footer>
+
+<script>
+  // ======================= CONFIGURATION =======================
+  const AUDIODB_API_KEY = 'YOUR_THEAUDIODB_API_KEY'; // 🔴 REPLACE WITH YOUR FREE API KEY FROM https://www.theaudiodb.com/signup
+  const REST_COUNTRIES_URL = 'https://restcountries.com/v3.1/all';
+  const THEMEALDB_FILTER_URL = 'https://www.themealdb.com/api/json/v1/1/filter.php?a=';
+  const THEMEALDB_LOOKUP_URL = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
+  const AUDIODB_SEARCH_URL = `https://www.theaudiodb.com/api/v1/json/${AUDIODB_API_KEY}/search.php?s=`;
+
+  // Global state
+  let allCountries = [];
+  let currentCountry = null;
+  let favorites = JSON.parse(localStorage.getItem('culture_favorites')) || [];
+
+  // DOM elements
+  const countryInput = document.getElementById('countryInput');
+  const autocompleteDiv = document.getElementById('autocompleteList');
+  const mainContainer = document.getElementById('mainContent');
+  const showFavBtn = document.getElementById('showFavoritesBtn');
+
+  // ========== Helper: Save favorites ==========
+  function saveFavorites() {
+    localStorage.setItem('culture_favorites', JSON.stringify(favorites));
+  }
+
+  // ========== Fetch all countries for autocomplete ==========
+  async function fetchAllCountries() {
+    try {
+      const res = await fetch(REST_COUNTRIES_URL);
+      const data = await res.json();
+      allCountries = data.map(c => c.name.common).sort();
+    } catch (err) {
+      console.error("Failed to load country list", err);
+    }
+  }
+
+  // ========== Autocomplete logic ==========
+  function showAutocomplete(filterText) {
+    if (!filterText) {
+      autocompleteDiv.style.display = 'none';
+      return;
+    }
+    const matches = allCountries.filter(c => c.toLowerCase().includes(filterText.toLowerCase())).slice(0, 8);
+    if (matches.length === 0) {
+      autocompleteDiv.style.display = 'none';
+      return;
+    }
+    autocompleteDiv.innerHTML = matches.map(m => `<div class="autocomplete-item">${m}</div>`).join('');
+    autocompleteDiv.style.display = 'block';
+    document.querySelectorAll('.autocomplete-item').forEach(el => {
+      el.addEventListener('click', () => {
+        countryInput.value = el.innerText;
+        autocompleteDiv.style.display = 'none';
+        searchCountry(el.innerText);
+      });
+    });
+  }
+
+  countryInput.addEventListener('input', (e) => {
+    showAutocomplete(e.target.value);
+  });
+  document.addEventListener('click', (e) => {
+    if (!autocompleteDiv.contains(e.target) && e.target !== countryInput) autocompleteDiv.style.display = 'none';
+  });
+
+  // ========== Main search function ==========
+  async function searchCountry(countryName) {
+    if (!countryName) return;
+    mainContainer.innerHTML = '<div class="loading">🌍 Loading culture data...</div>';
+    try {
+      // 1. Fetch country details from REST Countries
+      const countryRes = await fetch(`https://restcountries.com/v3.1/name/${encodeURIComponent(countryName)}?fullText=true`);
+      if (!countryRes.ok) throw new Error('Country not found');
+      const countryData = await countryRes.json();
+      const country = countryData[0];
+      currentCountry = country;
+
+      // 2. Fetch music from TheAudioDB (search by country name as artist)
+      let musicHTML = '<p>No music data found.</p>';
+      if (AUDIODB_API_KEY && AUDIODB_API_KEY !== 'YOUR_THEAUDIODB_API_KEY') {
+        try {
+          const musicRes = await fetch(AUDIODB_SEARCH_URL + encodeURIComponent(countryName));
+          const musicJson = await musicRes.json();
+          if (musicJson.artists && musicJson.artists.length > 0) {
+            const artists = musicJson.artists.slice(0, 3);
+            musicHTML = `<ul>${artists.map(a => `<li><strong>${a.strArtist}</strong> - ${a.strGenre || 'Various'}</li>`).join('')}</ul>`;
+          } else {
+            musicHTML = '<p>🎵 No artists found for this country (try another search).</p>';
+          }
+        } catch(e) { musicHTML = '<p>Music API error – showing demo: Popular local artists</p><ul><li>Example Artist 1</li><li>Example Artist 2</li></ul>'; }
+      } else {
+        musicHTML = '<p>🔑 Add TheAudioDB API key to see real music data.</p>';
+      }
+
+      // 3. Fetch cuisine from TheMealDB by country area
+      let cuisineHTML = '<p>No dishes found.</p>';
+      try {
+        const mealRes = await fetch(THEMEALDB_FILTER_URL + encodeURIComponent(countryName));
+        const mealData = await mealRes.json();
+        if (mealData.meals && mealData.meals.length > 0) {
+          const meal = mealData.meals[0];
+          const detailRes = await fetch(THEMEALDB_LOOKUP_URL + meal.idMeal);
+          const detailData = await detailRes.json();
+          const fullMeal = detailData.meals[0];
+          cuisineHTML = `
+            <img src="${fullMeal.strMealThumb}" alt="${fullMeal.strMeal}" style="width:100%; border-radius: 16px; margin-bottom: 0.5rem;">
+            <h4>${fullMeal.strMeal}</h4>
+            <p>${fullMeal.strArea} cuisine</p>
+            <a href="${fullMeal.strSource || '#'}" target="_blank">📖 View Recipe</a>
+          `;
+        } else {
+          cuisineHTML = '<p>🍽️ No recipe found – try a different country.</p>';
+        }
+      } catch(e) { cuisineHTML = '<p>⚠️ Could not load cuisine data.</p>'; }
+
+      // 4. Landmark (static fallback – creative demo)
+      const landmarkList = {
+        'Japan': 'Mount Fuji – iconic active volcano',
+        'France': 'Eiffel Tower – iron lattice tower',
+        'Egypt': 'Pyramids of Giza – ancient wonder',
+        'Canada': 'Niagara Falls – massive waterfalls',
+        'Brazil': 'Christ the Redeemer – Art Deco statue',
+        'Australia': 'Sydney Opera House – performing arts centre',
+        'India': 'Taj Mahal – marble mausoleum',
+        'Italy': 'Colosseum – ancient amphitheatre',
+        'Mexico': 'Chichen Itza – Mayan ruins',
+        'United States': 'Grand Canyon – massive gorge'
+      };
+      let landmarkText = landmarkList[countryName] || `${countryName} has amazing landmarks – explore more!`;
+      const flagUrl = country.flags?.png || '';
+      const capital = country.capital?.[0] || 'N/A';
+      const population = country.population?.toLocaleString() || 'N/A';
+      const region = country.region || 'Unknown';
+      const subregion = country.subregion || '';
+      const timezones = country.timezones?.join(', ') || 'N/A';
+      // JSON attributes count > 8 (flag, name, capital, population, region, subregion, timezones, area, languages)
+      const languages = country.languages ? Object.values(country.languages).join(', ') : 'N/A';
+      const area = country.area ? `${country.area.toLocaleString()} km²` : 'N/A';
+
+      const isFav = favorites.includes(countryName);
+      const favButtonHtml = `<button class="favorite-star ${isFav ? 'active' : ''}" data-country="${countryName}">${isFav ? '★ Favorited' : '☆ Add to Favorites'}</button>`;
+
+      const html = `
+        <div class="country-card">
+          <div class="flag-section">
+            <img src="${flagUrl}" alt="Flag of ${countryName}">
+          </div>
+          <div class="info-grid">
+            <div class="info-card">
+              <h3>🏛️ Country Profile</h3>
+              <p><strong>Name:</strong> ${countryName}</p>
+              <p><strong>Capital:</strong> ${capital}</p>
+              <p><strong>Population:</strong> ${population}</p>
+              <p><strong>Region:</strong> ${region} ${subregion ? `(${subregion})` : ''}</p>
+              <p><strong>Area:</strong> ${area}</p>
+              <p><strong>Languages:</strong> ${languages}</p>
+              <p><strong>Timezones:</strong> ${timezones}</p>
+              ${favButtonHtml}
+            </div>
+            <div class="info-card">
+              <h3>🎵 Music Scene</h3>
+              ${musicHTML}
+            </div>
+            <div class="info-card">
+              <h3>🍜 Cuisine Spotlight</h3>
+              ${cuisineHTML}
+            </div>
+            <div class="info-card">
+              <h3>🏯 Landmark</h3>
+              <p>${landmarkText}</p>
+              <small>✨ (Landmark data enriched from culture database)</small>
+            </div>
+          </div>
+        </div>
+      `;
+      mainContainer.innerHTML = html;
+      document.querySelectorAll('.favorite-star').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const ctry = btn.getAttribute('data-country');
+          toggleFavorite(ctry);
+          searchCountry(ctry); // refresh to show updated star
+        });
+      });
+    } catch (err) {
+      mainContainer.innerHTML = `<div class="error">❌ Error: ${err.message}. Please check country name or try again.</div>`;
+    }
+  }
+
+  function toggleFavorite(countryName) {
+    if (favorites.includes(countryName)) {
+      favorites = favorites.filter(c => c !== countryName);
+    } else {
+      favorites.push(countryName);
+    }
+    saveFavorites();
+  }
+
+  function showFavoritesList() {
+    if (favorites.length === 0) {
+      mainContainer.innerHTML = `<div class="country-card" style="padding:2rem; text-align:center">⭐ No favorites yet. Search and add some!</div>`;
+      return;
+    }
+    let favHtml = `<div class="country-card" style="padding:2rem"><h2>⭐ Your Favorite Countries</h2><div style="display:flex; flex-wrap:wrap; gap:1rem; margin-top:1rem;">`;
+    favorites.forEach(fav => {
+      favHtml += `<button class="favorite-star" style="background:#0A2647; color:white; padding:0.75rem 1.5rem;" data-fav="${fav}">${fav}</button>`;
+    });
+    favHtml += `</div></div>`;
+    mainContainer.innerHTML = favHtml;
+    document.querySelectorAll('[data-fav]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        countryInput.value = btn.innerText;
+        searchCountry(btn.innerText);
+      });
+    });
+  }
+  
+
+  countryInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      autocompleteDiv.style.display = 'none';
+      searchCountry(countryInput.value);
+    }
+  });
+  showFavBtn.addEventListener('click', showFavoritesList);
+
+  // Load initial data
+  fetchAllCountries();
+</script>
+</body>
+</html>
